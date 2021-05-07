@@ -55,6 +55,7 @@ while True:
         break
     if(event=="静音启动"):
         options.add_argument("--mute-audio")
+        break
     if(event==WIN_CLOSED):
         exit()
 
