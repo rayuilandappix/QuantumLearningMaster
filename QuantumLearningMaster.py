@@ -27,8 +27,14 @@ layout=[
     [sg.Text("可以在此处调整设置，并按启动按钮来开始学习")],
     [sg.Text("模式选择"),sg.Button("工作模式(默认)"),sg.Button("挂机模式")],
     [sg.Text("自动换P开关"),sg.Button("关闭"),sg.Button("打开(默认)")],
-    [sg.Button("启动")]
+    [sg.Button("启动"),sg.Button("静音启动")]
 ]
+
+options = Options()
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
 
 window = sg.Window('学习助手设置', layout, no_titlebar=False, auto_size_buttons=False)
 while True:
@@ -47,6 +53,8 @@ while True:
         print("自动换P已打开")
     if(event=="启动"):
         break
+    if(event=="静音启动"):
+        options.add_argument("--mute-audio")
     if(event==WIN_CLOSED):
         exit()
 
@@ -54,10 +62,6 @@ window.Close()
 
 
 print("正在打开浏览器")
-options = Options()
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver=webdriver.Chrome(f'{cwd}{sep}chromedriver',chrome_options=options)
 
 #driver.maximize_window()
